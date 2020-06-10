@@ -14,8 +14,8 @@ function Species(props) {
 }
 
 Species.propTypes = {
-    commonName: propTypes.string,
-    sciName: propTypes.string,
+    commonName: PropTypes.string,
+    sciName: PropTypes.string,
 }
 
 export default Species;
