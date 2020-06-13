@@ -50,24 +50,24 @@ class SpeciesControl extends React.Component {
         let buttonText = null;
 
         if(this.state.selectedSpecies != null) {
-            currentlyVisibleState = <SpeciesDetail species = {this.state.selectedSpecies} onClickingDelete = {this.handleDeletingSpecies}/>
+            currentlyVisibleState = <SpeciesInfo species = {this.state.selectedSpecies} onClickingDelete = {this.handleDeletingSpecies}/>
             buttonText = "Return to Species"
         }
         else if(this.state.selectedSpecies != null) {
-            currentlyVisibleState = <SpeciesDetail species ={this.state.selectedSpecies} />
+            currentlyVisibleState = <SpeciesInfo species ={this.state.selectedSpecies} />
             buttonText = "Return to Species List";
         }
         else if(this.state.formVisibleOnPage) {
             currentlyVisibleState = <NewSpeciesForm onNewSpeciesCreation = {this.handleAddingNewSpeciesToList}/>
             buttonText = "Return to Species List";
         } else {
-            currentlyVisibleState = <SpeciesDetail speciesList={this.state.masterSpeciesList} onNewSpeciesCreation={this.handleChangingSelectedSpecies}/>
+            currentlyVisibleState = <SpeciesList speciesList={this.state.masterSpeciesList} onNewSpeciesCreation={this.handleChangingSelectedSpecies}/>
             buttonText = "Add Species";
         }
     return (
         <React.Fragment>
             {currentlyVisibleState}
-    <button onClick={this.handleClick}>{buttonText}</button>
+             <button onClick={this.handleClick}>{buttonText}</button>
         </React.Fragment>
         );
     }

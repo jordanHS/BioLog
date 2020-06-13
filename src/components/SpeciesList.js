@@ -7,9 +7,12 @@ function SpeciesList(props) {
         <React.Fragment>
             <hr />
             {props.speciesList.map((species) =>
-            <Species whenSpeciesClicked={props.onSpeciesSelection}
+            <Species clickSpecies={props.onSpeciesSelection}
                 commonName={species.commonName}
                 sciName={species.sciName}
+                description={species.description}
+                notes={species.notes}
+                numberSeen={species.numberSeen}
                 id={species.id}
                 key={species.id} />
             )}
@@ -17,7 +20,7 @@ function SpeciesList(props) {
         );
     }
 
-SpeciesList.PropTypes = {
+SpeciesList.propTypes = {
     speciesList: PropTypes.array,
     onSpeciesSelection: PropTypes.func,
 }

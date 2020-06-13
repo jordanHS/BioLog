@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SpeciesInfo(){
+function SpeciesInfo(props){
     const { species, onClickingDelete} = props;
     return (
         <React.Fragment>
