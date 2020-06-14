@@ -61,7 +61,7 @@ class SpeciesControl extends React.Component {
             currentlyVisibleState = <NewSpeciesForm onNewSpeciesCreation = {this.handleAddingNewSpeciesToList}/>
             buttonText = "Return to Species List";
         } else {
-            currentlyVisibleState = <SpeciesList speciesList={this.state.masterSpeciesList} onNewSpeciesCreation={this.handleChangingSelectedSpecies}/>
+            currentlyVisibleState = <SpeciesList speciesList={this.state.masterSpeciesList} onSpeciesSelection={this.handleChangingSelectedSpecies}/>
             buttonText = "Add Species";
         }
     return (

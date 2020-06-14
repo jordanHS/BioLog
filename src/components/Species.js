@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function Species(props) {
     return (
         <React.Fragment>
-            <div onClick = {() => props.whenSpeciesClicked(props.id)}>
+            <div onClick = {() => props.clickSpecies(props.id)}>
                 <h2>Common Name: {props.commonName}</h2>
                 <h3>Scientific name: {props.sciName}</h3>
                 <h3>Number Seen: {props.numberSeen}</h3>
