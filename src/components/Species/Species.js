@@ -24,7 +24,7 @@ Species.propTypes = {
     notes: PropTypes.string,
     numberSeen: PropTypes.string,
     id: PropTypes.string,
-    whenSpeciesClicked: PropTypes.func,
+    clickSpecies: PropTypes.func,
 }
 
 export default Species;

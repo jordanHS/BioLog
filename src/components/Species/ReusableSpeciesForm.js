@@ -1,12 +1,10 @@
 import React from "react";
-import { v4 } from "uuid";
 import PropTypes from "prop-types";
 
-
-function NewSpeciesForm(props) {
-    return(
+function ReusableForm(props) {
+    return (
         <React.Fragment>
-            <form onSubmit={handleNewSpeciesFormSubmission}>
+            <form onSubmit={props.formSubmissionHandler}>
                 <input 
                     type='text'
                     name='commonName'
@@ -25,19 +23,15 @@ function NewSpeciesForm(props) {
                 <textarea
                     name='notes'
                     placeholder='Additional notes'/> <br></br>
-                <button type='submit'>Submit</button>
+                <button type='submit'>{props.buttonText}</button>
             </form>
         </React.Fragment>
     );
-
-    function handleNewSpeciesFormSubmission(event) {
-        event.preventDefault();
-        props.onNewSpeciesCreation({commonName: event.target.commonName.value, sciName: event.target.sciName.value, numberSeen: event.target.numberSeen.value, description: event.target.description.value, notes: event.target.notes.value, id: v4()});
-    }
 }
 
-NewSpeciesForm.propTypes = {
-    onNewSpeciesCreation: PropTypes.func
-}
+ReusableForm.propTypes = {
+    formSubmissionHandler: PropTypes.func,
+    buttonText: PropTypes.string,
+};
 
-export default NewSpeciesForm;
+export default ReusableForm;
