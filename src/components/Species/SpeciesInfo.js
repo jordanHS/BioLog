@@ -11,6 +11,7 @@ function SpeciesInfo(props){
             <h3>Description: {species.description}</h3>
             <h3>Additional Notes: {species.notes} </h3>
             <h3>Number Seen: {species.numberSeen}</h3>
+            <button onClick={ props.onClickingEdit}>Edit Entry</button>
             <button onClick={()=> onClickingDelete(species.id)}>Delete</button>
         </React.Fragment>
     );
@@ -19,6 +20,7 @@ function SpeciesInfo(props){
 SpeciesInfo.propTypes = {
     species: PropTypes.object,
     onClickingDelete: PropTypes.func,
+    onClickingEdit: PropTypes.func,
 }
 
 export default SpeciesInfo;
