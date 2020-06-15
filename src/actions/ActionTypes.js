@@ -1,0 +1,2 @@
+export const DELETE_SPECIES = 'DELETE_SPECIES';
+export const TOGGLE_FORM = 'TOGGLE_FORM';

@@ -3,37 +3,36 @@ import NewSpeciesForm from "./NewSpeciesForm";
 import SpeciesList from "./SpeciesList";
 import SpeciesInfo from "./SpeciesInfo";
 import EditSpeciesForm from './EditSpeciesForm';
-import * as a from './../actions';
+import * as a from '../../actions/index';
 import { withFirestore } from 'react-redux-firebase';
 
 class SpeciesControl extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            formVisibleOnPage: false,
-            masterSpeciesList: [],
             selectedSpecies: null,
             editing: false
         };
         this.handleClick = this.handleClick.bind(this);
-    }
+    } 
+
     handleClick = () => {
         if (this.state.selectedSpecies != null) {
             this.setState({
-                formVisibleOnPage: false,
                 selectedSpecies:null,
                 editing: false
             });
         } else {
-            this.setState(prevState => ({
-                formVisibleOnPage: !prevState.formVisibleOnPage,
-            }));
+          const { dispatch } = this.props;
+          const action = a.toggleForm();
+          dispatch(action);
         }
     }
 
     handleAddingNewSpeciesToList = () => {
        const {dispatch} = this.props;
         const action = a.toggleForm();
+        console.log(a.toggleForm);
         dispatch(action);
     }
 
