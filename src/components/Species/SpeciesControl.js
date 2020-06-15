@@ -3,6 +3,8 @@ import NewSpeciesForm from "./NewSpeciesForm";
 import SpeciesList from "./SpeciesList";
 import SpeciesInfo from "./SpeciesInfo";
 import EditSpeciesForm from './EditSpeciesForm';
+import * as a from './../actions';
+import { withFirestore } from 'react-redux-firebase';
 
 class SpeciesControl extends React.Component {
     constructor(props) {
@@ -29,23 +31,30 @@ class SpeciesControl extends React.Component {
         }
     }
 
-    handleAddingNewSpeciesToList = (newSpecies) => {
-        const newMasterSpeciesList = this.state.masterSpeciesList.concat(newSpecies);
-        this.setState({masterSpeciesList: newMasterSpeciesList,
-                        formVisibleOnPage: false})
+    handleAddingNewSpeciesToList = () => {
+       const {dispatch} = this.props;
+        const action = a.toggleForm();
+        dispatch(action);
     }
 
     handleChangingSelectedSpecies = (id) => {
-        const selectedSpecies = this.state.masterSpeciesList.filter(species => species.id === id)[0];
-        this.setState({selectedSpecies: selectedSpecies})
+      this.props.firestore.get({collection: 'species', doc: id}).then((species) =>{
+          const firestoreSpecies = {
+              commonName: species.get("common name"),
+              sciName: species.get("scientific name"),
+              numberSeen: species.get('number seen'),
+              description: species.get("description"),
+              notes: species.get("additional notes"),
+              id: species.id
+          }
+          this.setState({selectedSpecies: firestoreSpecies})
+      })
     }
 
-    handleDeletingSpecies = (id) => {
-        const newMasterSpeciesList = this.state.masterSpeciesList.filter(species => species.id !== id);
-       this.setState({
-           masterSpeciesList: newMasterSpeciesList,
-           selectedSpecies: null
-       })
+    handleDeletingSpecies = () => {
+       const { dispatch } = this.props;
+       const action = a.deleteSpecies();
+       dispatch(action);
     }
 
     handleEditClick = () => {
@@ -93,4 +102,4 @@ class SpeciesControl extends React.Component {
     }
 }
 
-export default SpeciesControl;
+export default withFirestore(SpeciesControl);

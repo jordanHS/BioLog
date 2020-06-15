@@ -1,12 +1,19 @@
 import React from "react";
 import Species from "./Species";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux'
+import { useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 
 function SpeciesList(props) {
+    useFirestoreConnect([
+        { collection: 'species'}
+    ]);
+    const species = useSelector(state.firestore.ordered.species);
+    if(isLoaded(species)) {
     return (
         <React.Fragment>
             <hr />
-            {props.speciesList.map((species) =>
+            {props.speciesList.map((species) => {
             <Species clickSpecies={props.onSpeciesSelection}
                 commonName={species.commonName}
                 sciName={species.sciName}
@@ -15,13 +22,20 @@ function SpeciesList(props) {
                 numberSeen={species.numberSeen}
                 id={species.id}
                 key={species.id} />
-            )}
+            })}
         </React.Fragment>
         );
+    } else {
+        return (
+            <React.Fragment>
+                <h3>Loading...</h3>
+            </React.Fragment>
+        )
     }
+}
 
 SpeciesList.propTypes = {
-    speciesList: PropTypes.array,
+ 
     onSpeciesSelection: PropTypes.func,
 }
 
