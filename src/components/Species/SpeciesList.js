@@ -6,37 +6,35 @@ import { useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 
 function SpeciesList(props) {
     useFirestoreConnect([
-        { collection: 'species'}
+        {collection: 'animals'}
     ]);
-    const species = useSelector(state => state.firestore.ordered.species);
-    if(isLoaded(species)) {
-    return (
-        <React.Fragment>
-            <hr />
-            {species.map((species) => {
-                return <Species
-                    clickSpecies={props.onSpeciesSelection}
-                    commonName={species.commonName}
-                    sciName={species.sciName}
-                    description={species.description}
-                    notes={species.notes}
-                    numberSeen={species.numberSeen}
-                    id={species.id}
-                    key={species.id} />
-            })}
-        </React.Fragment>
+    const animals = useSelector(state => state.firestore.ordered.species);
+    if (isLoaded(animals)) {
+        return (
+            <React.Fragment>
+                <hr />
+                {animals.map((species) => {
+                    return <Species
+                        clickSpecies={props.onSpeciesSelection}
+                        commonName={species.commonName}
+                        sciName={species.sciName}
+                        description={species.description}
+                        notes={species.notes}
+                        numberSeen={species.numberSeen}
+                        id={species.id}
+                        key={species.id} />
+                })}
+            </React.Fragment>
         );
     } else {
         return (
-            <React.Fragment>
-                <h3>Loading...</h3>
-            </React.Fragment>
+         <React.Fragment>
+            <h3>Loading...</h3>
+        </React.Fragment>
         )
     }
 }
-
 SpeciesList.propTypes = {
- 
     onSpeciesSelection: PropTypes.func,
 }
 

@@ -1,5 +1,5 @@
 import * as c from './../actions/ActionTypes';
-import NewSpeciesForm from '../components/Species/NewSpeciesForm';
+
 
 export default (state = {}, action) => {
     const { id } = action;

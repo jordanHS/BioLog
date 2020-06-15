@@ -5,10 +5,10 @@ import { useFirestore } from 'react-redux-firebase';
 
 function NewSpeciesForm(props) {
     const firestore = useFirestore()
-    function handleNewSpeciesFormSubmission(event) {
+    function addSpeciesToFirestore(event) {
         event.preventDefault();
         props.onNewSpeciesCreation();
-        return firestore.collection('species').add(
+        return firestore.collection('animals').add(
             {
                 commonName: event.target.commonName.value,
                 sciName: event.target.sciName.value,
@@ -21,7 +21,7 @@ function NewSpeciesForm(props) {
     return(
         <React.Fragment>
            <ReusableSpeciesForm
-           formSubmissionHandler={handleNewSpeciesFormSubmission}
+           formSubmissionHandler={addSpeciesToFirestore}
             buttonText="Add entry"/>
         </React.Fragment>
     );

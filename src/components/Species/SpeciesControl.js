@@ -5,6 +5,7 @@ import SpeciesInfo from "./SpeciesInfo";
 import EditSpeciesForm from './EditSpeciesForm';
 import * as a from '../../actions/index';
 import { withFirestore } from 'react-redux-firebase';
+import { connect } from 'react-redux';
 
 class SpeciesControl extends React.Component {
     constructor(props) {
@@ -18,26 +19,25 @@ class SpeciesControl extends React.Component {
 
     handleClick = () => {
         if (this.state.selectedSpecies != null) {
-            this.setState({
-                selectedSpecies:null,
-                editing: false
-            });
+          this.setState({
+            selectedSpecies: null,
+            editing: false
+          });
         } else {
           const { dispatch } = this.props;
           const action = a.toggleForm();
           dispatch(action);
         }
-    }
+      }
 
     handleAddingNewSpeciesToList = () => {
        const {dispatch} = this.props;
         const action = a.toggleForm();
-        console.log(a.toggleForm);
         dispatch(action);
     }
 
     handleChangingSelectedSpecies = (id) => {
-      this.props.firestore.get({collection: 'species', doc: id}).then((species) =>{
+      this.props.firestore.get({collection: 'animals', doc: id}).then((species) =>{
           const firestoreSpecies = {
               commonName: species.get("common name"),
               sciName: species.get("scientific name"),
@@ -89,7 +89,7 @@ class SpeciesControl extends React.Component {
             currentlyVisibleState = <NewSpeciesForm onNewSpeciesCreation = {this.handleAddingNewSpeciesToList}/>
             buttonText = "Return to Species List";
         } else {
-            currentlyVisibleState = <SpeciesList speciesList={this.state.masterSpeciesList} onSpeciesSelection={this.handleChangingSelectedSpecies}/>
+            currentlyVisibleState = <SpeciesList speciesList={this.props.masterSpeciesList} onSpeciesSelection={this.handleChangingSelectedSpecies}/>
             buttonText = "Add Species";
         }
     return (
@@ -100,5 +100,14 @@ class SpeciesControl extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        masterSpeciesList: state.masterSpeciesList,
+        formVisibleOnPage: state.formVisibleOnPage,
+    }
+}
+
+SpeciesControl = connect(mapStateToProps)(SpeciesControl);
 
 export default withFirestore(SpeciesControl);
