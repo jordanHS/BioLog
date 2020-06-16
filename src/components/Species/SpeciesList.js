@@ -6,14 +6,14 @@ import { useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 
 function SpeciesList(props) {
     useFirestoreConnect([
-        {collection: 'animals'}
+        {collection: 'species'}
     ]);
-    const animals = useSelector(state => state.firestore.ordered.species);
-    if (isLoaded(animals)) {
+    const speciesList = useSelector(state => state.firestore.ordered.species);
+    if (isLoaded(speciesList)) {
         return (
             <React.Fragment>
                 <hr />
-                {animals.map((species) => {
+                {speciesList.map((species) => {
                     return <Species
                         clickSpecies={props.onSpeciesSelection}
                         commonName={species.commonName}

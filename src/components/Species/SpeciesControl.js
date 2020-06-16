@@ -6,11 +6,13 @@ import EditSpeciesForm from './EditSpeciesForm';
 import * as a from '../../actions/index';
 import { withFirestore } from 'react-redux-firebase';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
 class SpeciesControl extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            formVisibleOnPage: false,
             selectedSpecies: null,
             editing: false
         };
@@ -24,11 +26,11 @@ class SpeciesControl extends React.Component {
             editing: false
           });
         } else {
-          const { dispatch } = this.props;
-          const action = a.toggleForm();
-          dispatch(action);
-        }
-      }
+            const { dispatch } = this.props;
+            const action = a.toggleForm();
+            dispatch(action);
+    }
+  }
 
     handleAddingNewSpeciesToList = () => {
        const {dispatch} = this.props;
@@ -37,7 +39,7 @@ class SpeciesControl extends React.Component {
     }
 
     handleChangingSelectedSpecies = (id) => {
-      this.props.firestore.get({collection: 'animals', doc: id}).then((species) =>{
+      this.props.firestore.get({collection: 'species', doc: id}).then((species) =>{
           const firestoreSpecies = {
               commonName: species.get("common name"),
               sciName: species.get("scientific name"),
@@ -85,7 +87,7 @@ class SpeciesControl extends React.Component {
             currentlyVisibleState = <SpeciesInfo species ={this.state.selectedSpecies} />
             buttonText = "Return to Species List";
         }
-        else if(this.state.formVisibleOnPage) {
+        else if(this.props.formVisibleOnPage) {
             currentlyVisibleState = <NewSpeciesForm onNewSpeciesCreation = {this.handleAddingNewSpeciesToList}/>
             buttonText = "Return to Species List";
         } else {
@@ -99,6 +101,10 @@ class SpeciesControl extends React.Component {
         </React.Fragment>
         );
     }
+}
+
+SpeciesControl.propTypes = {
+    masterSpeciesList: PropTypes.object
 }
 
 const mapStateToProps = state => {
