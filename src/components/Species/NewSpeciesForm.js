@@ -8,7 +8,7 @@ function NewSpeciesForm(props) {
     function addSpeciesToFirestore(event) {
         event.preventDefault();
         props.onNewSpeciesCreation();
-        return firestore.collection('animals').add(
+        return firestore.collection('species').add(
             {
                 commonName: event.target.commonName.value,
                 sciName: event.target.sciName.value,
