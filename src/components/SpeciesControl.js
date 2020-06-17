@@ -3,7 +3,7 @@ import NewSpeciesForm from "./NewSpeciesForm";
 import SpeciesList from "./SpeciesList";
 import SpeciesInfo from "./SpeciesInfo";
 import EditSpeciesForm from './EditSpeciesForm';
-import * as a from '../../actions/index';
+import * as a from './../actions/index';
 import { withFirestore } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
@@ -52,10 +52,9 @@ class SpeciesControl extends React.Component {
       })
     }
 
-    handleDeletingSpecies = () => {
-       const { dispatch } = this.props;
-       const action = a.deleteSpecies();
-       dispatch(action);
+    handleDeletingSpecies = (id) => {
+       this.props.firestore.delete({collection: 'species', doc: id});
+       this.setState({selectedSpecies: null})
     }
 
     handleEditClick = () => {

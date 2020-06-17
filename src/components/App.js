@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from "./Header";
-import SpeciesControl from "./Species/SpeciesControl";
+import SpeciesControl from "./SpeciesControl";
 
 
 function App() {
