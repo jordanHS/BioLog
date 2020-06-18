@@ -41,11 +41,11 @@ class SpeciesControl extends React.Component {
     handleChangingSelectedSpecies = (id) => {
       this.props.firestore.get({collection: 'species', doc: id}).then((species) =>{
           const firestoreSpecies = {
-              commonName: species.get("common name"),
-              sciName: species.get("scientific name"),
-              numberSeen: species.get('number seen'),
+              commonName: species.get("commonName"),
+              sciName: species.get("sciName"),
+              numberSeen: species.get('numberSeen'),
               description: species.get("description"),
-              notes: species.get("additional notes"),
+              notes: species.get("Additional notes"),
               id: species.id
           }
           this.setState({selectedSpecies: firestoreSpecies})
@@ -61,10 +61,8 @@ class SpeciesControl extends React.Component {
         this.setState({editing: true});
     }
 
-    handleEditingSpecies = (speciesToEdit) => {
-        const editedMasterSpeciesList = this.state.masterSpeciesList.filter(species => species.id !== this.state.selectedSpecies.id).concat(speciesToEdit);
+    handleEditingSpecies = () => {
         this.setState({
-            masterSpeciesList: editedMasterSpeciesList,
             editing: false,
             selectedSpecies: null
         });
@@ -75,17 +73,17 @@ class SpeciesControl extends React.Component {
         let buttonText = null;
 
         if (this.state.editing) {
-            currentlyVisibleState = <EditSpeciesForm species = {this.state.selectedSpecies} onEditTicket= {this.handleEditingSpecies}/>
+            currentlyVisibleState = <EditSpeciesForm species = {this.state.selectedSpecies} onEditSpecies= {this.handleEditingSpecies}/>
             buttonText = "Return to Species List";
         }
         else if(this.state.selectedSpecies != null) {
             currentlyVisibleState = <SpeciesInfo species = {this.state.selectedSpecies} onClickingDelete = {this.handleDeletingSpecies} onClickingEdit = {this.handleEditClick} />
             buttonText = "Return to Species"
         }
-        else if(this.state.selectedSpecies != null) {
-            currentlyVisibleState = <SpeciesInfo species ={this.state.selectedSpecies} />
-            buttonText = "Return to Species List";
-        }
+        // else if(this.state.selectedSpecies != null) {
+        //     currentlyVisibleState = <SpeciesInfo species ={this.state.selectedSpecies} />
+        //     buttonText = "Return to Species List";
+        // }
         else if(this.props.formVisibleOnPage) {
             currentlyVisibleState = <NewSpeciesForm onNewSpeciesCreation = {this.handleAddingNewSpeciesToList}/>
             buttonText = "Return to Species List";

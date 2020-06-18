@@ -18,9 +18,9 @@ function SpeciesList(props) {
                         clickSpecies={props.onSpeciesSelection}
                         commonName={species.commonName}
                         sciName={species.sciName}
+                        numberSeen={species.numberSeen}
                         description={species.description}
                         notes={species.notes}
-                        numberSeen={species.numberSeen}
                         id={species.id}
                         key={species.id} />
                 })}

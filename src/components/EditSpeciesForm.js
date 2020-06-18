@@ -1,19 +1,29 @@
 import React from "react";
 import ReusableSpeciesForm from "./ReusableSpeciesForm";
 import PropTypes from "prop-types";
+import Species from "./Species";
+import { useFirestore } from "react-redux-firebase";
 
 function EditNewSpecies (props) {
-    const { species } = props;
+const firestore = useFirestore();
 
-    function handleEditSpeciesFormSubmission(event) {
+    function editFormSubmission(event) {
         event.preventDefault();
-        props.onEditSpecies({commonName: event.target.commonName.value, sciName: event.target.sciName.value, numberSeen: event.target.numberSeen.value, description: event.target.description.value, notes: event.target.notes.value, id: species.id})
+        props.onEditSpecies();
+        const propertiesToUpdate = {
+            commonName: event.target.commonName.value, 
+            sciName: event.target.sciName.value, 
+            numberSeen: event.target.numberSeen.value, 
+            description: event.target.description.value, 
+            notes: event.target.notes.value, 
+            }
+            return firestore.update({collection: 'animals', doc: Species.id}, propertiesToUpdate)
     }
 
     return (
         <React.Fragment>
             <ReusableSpeciesForm
-            formSubmissionHandler={handleEditSpeciesFormSubmission}
+            formSubmissionHandler={editFormSubmission}
             buttonText="Edit entry"/>
         </React.Fragment>
     );
