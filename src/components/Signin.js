@@ -24,6 +24,14 @@ function Signin(){
         });
     }
 
+    function logOut() {
+        firebase.auth().signOut().then(function() {
+            console.log("Log out successful!");
+        }).catch(function(){
+            console.log(error.message);
+        })
+    }
+
 return (
     <React.Fragment>
         <h1>Register</h1>
@@ -50,6 +58,8 @@ return (
                 placeholder='Password'/>
             <button type='submit'>Log in</button>    
         </form>
+        <h1>Log Out</h1>
+        <button onClick={logOut}>Log Out</button>
     </React.Fragment>
 )
 }
