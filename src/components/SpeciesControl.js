@@ -4,7 +4,7 @@ import SpeciesList from "./SpeciesList";
 import SpeciesInfo from "./SpeciesInfo";
 import EditSpeciesForm from './EditSpeciesForm';
 import * as a from './../actions/index';
-import { withFirestore } from 'react-redux-firebase';
+import { withFirestore, isLoaded } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
@@ -45,7 +45,7 @@ class SpeciesControl extends React.Component {
               sciName: species.get("sciName"),
               numberSeen: species.get('numberSeen'),
               description: species.get("description"),
-              notes: species.get("Additional notes"),
+              notes: species.get("notes"),
               id: species.id
           }
           this.setState({selectedSpecies: firestoreSpecies})
@@ -68,7 +68,24 @@ class SpeciesControl extends React.Component {
         });
     }
 
+
     render() {
+        const auth = this.props.firebase.auth();
+        if (!isLoaded(auth)) {
+            return (
+                <React.Fragment>
+                    <h1>Loading...</h1>
+                </React.Fragment>
+            )
+        }
+        if ((isLoaded(auth)) && (auth.currentUser == null)) {
+            return (
+                <React.Fragment>
+                    <h1>You must be signed in to add entries to the catalogue</h1>
+                </React.Fragment>
+            )
+        }
+        if ((isLoaded(auth)) && (auth.currentUser != null)) {
         let currentlyVisibleState = null;
         let buttonText = null;
 
@@ -80,10 +97,6 @@ class SpeciesControl extends React.Component {
             currentlyVisibleState = <SpeciesInfo species = {this.state.selectedSpecies} onClickingDelete = {this.handleDeletingSpecies} onClickingEdit = {this.handleEditClick} />
             buttonText = "Return to Species"
         }
-        // else if(this.state.selectedSpecies != null) {
-        //     currentlyVisibleState = <SpeciesInfo species ={this.state.selectedSpecies} />
-        //     buttonText = "Return to Species List";
-        // }
         else if(this.props.formVisibleOnPage) {
             currentlyVisibleState = <NewSpeciesForm onNewSpeciesCreation = {this.handleAddingNewSpeciesToList}/>
             buttonText = "Return to Species List";
@@ -98,6 +111,7 @@ class SpeciesControl extends React.Component {
         </React.Fragment>
         );
     }
+}
 }
 
 SpeciesControl.propTypes = {

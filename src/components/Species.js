@@ -20,6 +20,7 @@ function Species(props) {
 Species.propTypes = {
     commonName: PropTypes.string,
     sciName: PropTypes.string,
+    type: PropTypes.string,
     description: PropTypes.string,
     notes: PropTypes.string,
     numberSeen: PropTypes.string,

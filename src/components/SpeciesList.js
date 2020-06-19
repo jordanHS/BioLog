@@ -2,7 +2,8 @@ import React from "react";
 import Species from "./Species";
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux'
-import { useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase'
+import { useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
+
 
 function SpeciesList(props) {
     useFirestoreConnect([
@@ -18,6 +19,7 @@ function SpeciesList(props) {
                         clickSpecies={props.onSpeciesSelection}
                         commonName={species.commonName}
                         sciName={species.sciName}
+                        type={species.type}
                         numberSeen={species.numberSeen}
                         description={species.description}
                         notes={species.notes}
