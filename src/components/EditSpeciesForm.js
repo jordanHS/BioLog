@@ -17,7 +17,7 @@ const firestore = useFirestore();
             description: event.target.description.value, 
             notes: event.target.notes.value, 
             }
-            return firestore.update({collection: 'animals', doc: Species.id}, propertiesToUpdate)
+            return firestore.update({collection: 'species', doc: Species.id}, propertiesToUpdate)
     }
 
     return (

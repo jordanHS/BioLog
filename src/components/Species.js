@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+
+
 function Species(props) {
     return (
         <React.Fragment>
@@ -20,7 +22,6 @@ function Species(props) {
 Species.propTypes = {
     commonName: PropTypes.string,
     sciName: PropTypes.string,
-    type: PropTypes.string,
     description: PropTypes.string,
     notes: PropTypes.string,
     numberSeen: PropTypes.string,

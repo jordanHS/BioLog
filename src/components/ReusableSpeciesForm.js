@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+// import TypeSelector from "./TypeSelector"
 
 function ReusableForm(props) {
     return (
@@ -9,6 +10,7 @@ function ReusableForm(props) {
                     type='text'
                     name='commonName'
                     placeholder='Common Name'/> <br></br>
+                {/* <TypeSelector /> */}
                 <input
                     type='text'
                     name='sciName'
