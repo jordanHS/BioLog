@@ -14,7 +14,8 @@ class SpeciesControl extends React.Component {
         this.state = {
             formVisibleOnPage: false,
             selectedSpecies: null,
-            editing: false
+            editing: false,
+            login: false,
         };
         this.handleClick = this.handleClick.bind(this);
     } 
@@ -68,6 +69,10 @@ class SpeciesControl extends React.Component {
         });
     }
 
+    // handleLogin = () => {
+    //     this.setState({login: true});
+    // }
+
 
     render() {
         const auth = this.props.firebase.auth();
@@ -89,6 +94,9 @@ class SpeciesControl extends React.Component {
         let currentlyVisibleState = null;
         let buttonText = null;
 
+        // if (this.state.login) {
+        //     currentlyVisibleState = <SpeciesList speciesList={this.props.masterSpeciesList} logIn={this.handleLogin}/>
+        // }
         if (this.state.editing) {
             currentlyVisibleState = <EditSpeciesForm species = {this.state.selectedSpecies} onEditSpecies= {this.handleEditingSpecies}/>
             buttonText = "Return to Species List";
